@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rejoindre Federerici Suisse | VTC ETS2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2A7FFF;
+      --primary-light: #E6F0FF;
+      --secondary: #00C4A3;
+      --dark: #1A1A1A;
+      --light: #F8FAFC;
+      --gray: #6B7280;
+      --border: rgba(0,0,0,0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #F5F7FA;
+      color: var(--dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .navbar img {
+      height: 50px;
+      transition: transform 0.3s;
+    }
+
+    .navbar img:hover {
+      transform: scale(1.05);
+    }
+
+    .navbar nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .navbar nav a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .navbar nav a:hover {
+      color: var(--primary);
+    }
+
+    .navbar nav a.active {
+      color: var(--primary);
+    }
+
+    .navbar nav a.active::after,
+    .navbar nav a:hover::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+
+    header {
+      text-align: center;
+      padding: 8rem 1rem 4rem;
+      margin-top: 60px;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      color: white;
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+      padding-bottom: 8rem;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: -4rem auto 0;
+      padding: 3rem 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      position: relative;
+      z-index: 1;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    section {
+      margin-bottom: 4rem;
+    }
+
+    section:last-child {
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+      position: relative;
+      padding-bottom: 0.5rem;
+      transition: color 0.3s;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+
+    p {
+      font-size: 1.05rem;
+      color: var(--dark);
+      margin-bottom: 1.2rem;
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.8rem 1.8rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .btn:hover {
+      background: #1A6AE6;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(42, 127, 255, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary-light);
+    }
+
+    .join-intro {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 3rem;
+    }
+
+    .positions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .position-card {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+      transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    }
+
+    .position-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .position-card h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .position-card .badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .requirements-list {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+
+    .requirements-list li {
+      margin-bottom: 0.8rem;
+      position: relative;
+      padding-left: 1.5rem;
+      transition: color 0.3s;
+    }
+
+    .requirements-list li::before {
+      content: '•';
+      color: var(--primary);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    .application-form {
+      max-width: 700px;
+      margin: 3rem auto 0;
+      background: var(--light);
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: background-color 0.3s;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border 0.3s, background-color 0.3s, color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .faq-section {
+      margin-top: 5rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .faq-question {
+      padding: 1.5rem;
+      background: var(--light);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      background-color: white;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      max-height: 500px;
+    }
+
+    .faq-answer p {
+      margin: 0;
+      padding: 0.5rem 0;
+    }
+
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 4rem 0 0;
+      margin-top: 4rem;
+      transition: background-color 0.3s;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 3rem;
+    }
+
+    .footer-section h3 {
+      color: white;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .footer-section a {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .footer-section a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 999;
+      border: none;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+    }
+
+    .back-to-top:hover {
+      background: #1A6AE6;
+      transform: translateY(-3px);
+    }
+
+    .dark-mode-toggle {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+
+    .dark-mode-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .navbar {
+      background-color: #1e1e1e;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+
+    body.dark-mode .navbar nav a {
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .navbar nav a:hover {
+      color: var(--primary);
+    }
+
+    body.dark-mode main {
+      background-color: #1e1e1e;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    body.dark-mode h2,
+    body.dark-mode p,
+    body.dark-mode .requirements-list li {
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .position-card {
+      background-color: #252525;
+      border-color: #333;
+    }
+
+    body.dark-mode .application-form,
+    body.dark-mode .faq-question {
+      background-color: #252525;
+    }
+
+    body.dark-mode .faq-item {
+      border-color: #333;
+    }
+
+    body.dark-mode .faq-answer {
+      background-color: #2d2d2d;
+    }
+
+    body.dark-mode .form-group input,
+    body.dark-mode .form-group select,
+    body.dark-mode .form-group textarea {
+      background-color: #333;
+      color: #e0e0e0;
+      border-color: #444;
+    }
+
+    body.dark-mode footer {
+      background-color: #121212;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 6rem 1rem 5rem;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      .navbar {
+        padding: 0.8rem 1rem;
+      }
+
+      .navbar nav {
+        gap: 1rem;
+      }
+
+      main {
+        padding: 2rem 1.5rem;
+        margin-top: -3rem;
+      }
+
+      .application-form {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 5rem 1rem 4rem;
+      }
+
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      .navbar {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .navbar nav {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .positions-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dark-mode-toggle {
+        bottom: 1rem;
+        left: 1rem;
+        width: 40px;
+        height: 40px;
+      }
+
+      .back-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <img src="logo.png" alt="Logo Federerici Suisse">
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="actualites.html">Actualités</a>
+      <a href="rejoindre.html" class="active">Nous Rejoindre</a>
+      <a href="flotte.html">Notre Flotte</a>
+      <a href="membres.html">Nos Membres</a>
+      <a href="notre histoire.html">Notre Histoire</a>
+      <a href="ressources.html">Ressources</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+
+  <header>
+    <h1>Rejoindre Federerici Suisse</h1>
+    <p>Nous recrutons !</p>
+  </header>
+
+  <main>
+    <section class="join-intro">
+      <h2>Fais route avec nous</h2>
+      <p>
+        Chez Federerici Suisse, nous recherchons des passionnés pour développer notre entreprise. Que tu sois chauffeur occasionnel ou modérateur aguerri, il y a une place pour toi dans notre équipe !
+      </p>
+      <a href="#formulaire" class="btn">Postuler maintenant</a>
+    </section>
+
+    <section>
+      <h2>Nos postes disponibles</h2>
+
+      <div class="positions-grid">
+        <div class="position-card">
+          <span class="badge">Chauffeur</span>
+          <h3>Chauffeur PL</h3>
+          <p>Effectue des missions de transport Poids Lourd à travers l'Europe.</p>
+
+          <h4>Profil recherché :</h4>
+          <ul class="requirements-list">
+            <li>Être actif au moins 2 fois par semaine</li>
+            <li>Avoir le sens du respect et de la convivialité</li>
+            <li>Conduire proprement et respecter le code de la route</li>
+            <li>Aimer participer aux convois communautaires</li>
+          </ul>
+
+          <a href="#formulaire" class="btn btn-outline">Postuler</a>
+        </div>
+
+        <div class="position-card">
+          <span class="badge">Chauffeur</span>
+          <h3>Conducteur·rice Voiture Pilote (VL)</h3>
+          <p>Ouvre la voie lors de nos convois officiels, sécurise les trajets et guide les participants avec style et précision.</p>
+
+          <h4>Profil recherché :</h4>
+          <ul class="requirements-list">
+            <li>Disponible pendant les événements/convois et ponctuel·le</li>
+            <li>Bonne maîtrise de la conduite en voiture</li>
+            <li>Conduire proprement et respecter le code de la route</li>
+            <li>Aimer participer aux convois communautaires</li>
+            <li>Capacité à guider un convoi dans diverses situations</li>
+            <li>Sens de l'anticipation et des responsabilités</li>
+          </ul>
+
+          <a href="#formulaire" class="btn btn-outline">Postuler</a>
+        </div>
+
+        <div class="position-card">
+          <span class="badge">Staff</span>
+          <h3>Responsable RH</h3>
+          <p>Gère les recrutements, l'intégration des nouveaux membres et l'ambiance générale de la VTC.</p>
+
+          <h4>Profil recherché :</h4>
+          <ul class="requirements-list">
+            <li>Disponibilité régulière</li>
+            <li>Bonne communication</li>
+            <li>Sens de l'organisation</li>
+            <li>Expérience en gestion de communauté appréciée</li>
+          </ul>
+
+          <a href="#formulaire" class="btn btn-outline">Postuler</a>
+        </div>
+
+        <div class="position-card">
+          <span class="badge">Staff</span>
+          <h3>Responsable Événements</h3>
+          <p>Organise et anime des convois et événements pour la communauté.</p>
+
+          <h4>Profil recherché :</h4>
+          <ul class="requirements-list">
+            <li>Créativité pour proposer des idées d'événements</li>
+            <li>Capacité à animer une communauté</li>
+            <li>Bonnes connaissances du jeu et de TruckersMP</li>
+            <li>Disponibilité pour organiser des événements réguliers</li>
+          </ul>
+
+          <a href="#formulaire" class="btn btn-outline">Postuler</a>
+        </div>
+
+        <div class="position-card">
+          <span class="badge">Auxiliaire</span>
+          <h3>Designer</h3>
+          <p>Crée l'identité visuelle de la VTC et conçoit des visuels pour nos annonces, événements et réseaux.</p>
+
+          <h4>Profil recherché :</h4>
+          <ul class="requirements-list">
+            <li>Créativité</li>
+            <li>À l'aise avec des outils comme Photoshop, Illustrator, Figma ou équivalent</li>
+            <li>Sens du détail et cohérence visuelle</li>
+            <li>Esprit d'équipe et motivation à s'investir dans un projet communautaire</li>
+          </ul>
+
+          <a href="#formulaire" class="btn btn-outline">Postuler</a>
+        </div>
+
+        <div class="position-card">
+          <span class="badge">Auxiliaire</span>
+          <h3>Photographe</h3>
+          <p>Immortalise nos convois ou événements avec des clichés stylés et immersifs.</p>
+
+          <h4>Profil recherché :</h4>
+          <ul class="requirements-list">
+            <li>Créativité</li>
+            <li>Sens du cadrage</li>
+            <li>Connaissance du mode photo de ETS2</li>
+            <li>Organisation pour le tri et partage rapide des images</li>
+            <li>Bonne communication avec l'équipe, surtout avec le designer</li>
+          </ul>
+
+          <a href="#formulaire" class="btn btn-outline">Postuler</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="formulaire" class="application-form">
+      <h2>Formulaire de candidature</h2>
+      <p>Remplis ce formulaire pour nous rejoindre. Nous te répondrons sous 48h sur Discord.</p>
+
+      <form id="recruitmentForm" action="https://formspree.io/f/mvgqayly" method="POST">
+        <div class="form-group">
+          <label for="pseudo">Ton pseudo Discord*</label>
+          <input type="text" id="pseudo" name="discord" required placeholder="Pseudo">
+        </div>
+
+        <div class="form-group">
+          <label for="pseudo-truckersmp">Ton pseudo TruckersMP*</label>
+          <input type="text" id="pseudo-truckersmp" name="truckersmp" required placeholder="Pseudo">
+        </div>
+
+        <div class="form-group">
+          <label for="poste">Poste souhaité*</label>
+          <select id="poste" name="position" required>
+            <option value="">-- Sélectionne un poste --</option>
+            <option value="chauffeur">Chauffeur PL</option>
+            <option value="chauffeurvl">Conducteur VL</option>
+            <option value="rh">Responsable RH</option>
+            <option value="events">Responsable Événements</option>
+            <option value="design">Designer</option>
+            <option value="photo">Photographe</option>
+            <option value="autre">Autre (précisez ci-dessous)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="experience">Ton expérience (ETS2, VTC, etc.)*</label>
+          <textarea id="experience" name="experience" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="motivation">Pourquoi veux-tu nous rejoindre ?*</label>
+          <textarea id="motivation" name="motivation" required></textarea>
+        </div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn">Envoyer ma candidature</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="faq-section">
+      <h2>Questions fréquentes</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Quels sont les avantages à rejoindre la VTC ?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          <p>En rejoignant Federerici Suisse, tu auras accès à : une communauté active et sympa, des convois organisés régulièrement, un système de progression avec promotions en rôles possibles, de l'aide en cas de besoin, et bien plus encore !</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Dois-je être suisse pour rejoindre ?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          <p><b>Non</b>, notre VTC est ouverte à tous ! Bien que nous soyons basés sur une identité suisse, nous acceptons des membres de toutes nationalités, du moment que tu parles français ou anglais !</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Quel niveau de jeu est requis ?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Aucun niveau particulier n'est requis pour les chauffeurs. Nous accueillons aussi bien les débutants que les joueurs expérimentés. L'important est la motivation et le respect des règles.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Comment se passe l'intégration ?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Après acceptation de ta candidature, tu seras averti sur Discord (ou par mail en cas de besoin). Un membre du staff t'expliquera la structure et répondra à tes questions. Tu pourras ensuite commencer à rouler pour nous !</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Federerici Suisse</h3>
+        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">
+          VTC suisse sur Euro Truck Simulator 2<br>
+          Communauté TruckersMP
+        </p>
+      </div>
+      <div class="footer-section">
+        <h3>Navigation</h3>
+        <a href="index.html">Accueil</a>
+        <a href="actualites.html">Actualités</a>
+        <a href="flotte.html">Notre flotte</a>
+        <a href="membres.html">Nos membres</a>
+        <a href="rejoindre.html">Nous rejoindre</a>
+        <a href="notre histoire.html">Notre histoire</a>
+        <a href="ressources.html">Ressources</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-section">
+        <h3>Réseaux</h3>
+        <a href="https://discord.gg/MRFuBCkmA5">Discord</a>
+        <a href="https://truckersmp.com/vtc/47563">TruckersMP</a>
+        <a href="#">YouTube</a>
+        <a href="#">Instagram</a>
+      </div>
+      <div class="footer-section">
+        <h3>Légal</h3>
+        <a href="#">Mentions légales</a>
+        <a href="#">Règlement</a>
+        <a href="#">Politique de confidentialité</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Federerici Suisse | Tous droits réservés | Design by AngryBm & ChatGPT
+    </div>
+  </footer>
+
+  <button class="back-to-top">↑</button>
+  <button class="dark-mode-toggle" title="Basculer en mode sombre">🌓</button>
+
+  <script>
+    const backToTopButton = document.querySelector('.back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.add('visible');
+      } else {
+        backToTopButton.classList.remove('visible');
+      }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        item.classList.toggle('active');
+
+        const sign = question.querySelector('span:last-child');
+        sign.textContent = item.classList.contains('active') ? '−' : '+';
+      });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 100,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    const darkModeToggle = document.querySelector('.dark-mode-toggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+    if (localStorage.getItem('darkMode') === 'enabled' ||
+        (localStorage.getItem('darkMode') !== 'disabled' && prefersDarkScheme.matches)) {
+      document.body.classList.add('dark-mode');
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+    });
+
+    document.getElementById('recruitmentForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+
+      submitBtn.textContent = 'Envoi en cours...';
+      submitBtn.disabled = true;
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Candidature envoyée avec succès ! Nous te contacterons sur Discord sous 48h.');
+          form.reset();
+        } else {
+          throw new Error('Erreur lors de l\'envoi de la candidature');
+        }
+      })
+      .catch(error => {
+        alert('Une erreur est survenue. Veuillez réessayer ou nous contacter via Discord.');
+        console.error(error);
+      })
+      .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nos Membres | Federerici Suisse VTC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF4D4D;
+      --primary-light: #FFE6E6;
+      --secondary: #00D1A9;
+      --dark: #1A1A1A;
+      --light: #F8FAFC;
+      --gray: #6B7280;
+      --border: rgba(0,0,0,0.1);
+      --gradient: linear-gradient(135deg, #FF4D4D 0%, #00D1A9 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #F5F7FA;
+      color: var(--dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    /* Navbar mise à jour */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .navbar img {
+      height: 50px;
+      transition: transform 0.3s;
+    }
+
+    .navbar img:hover {
+      transform: scale(1.05);
+    }
+
+    .navbar nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .navbar nav a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .navbar nav a:hover {
+      color: var(--primary);
+    }
+
+    .navbar nav a.active {
+      color: var(--primary);
+    }
+
+    .navbar nav a.active::after,
+    .navbar nav a:hover::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--gradient);
+      transition: width 0.3s;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 8rem 1rem 4rem;
+      margin-top: 60px;
+      background: var(--gradient);
+      color: white;
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    header p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    /* Main content */
+    main {
+      max-width: 1100px;
+      margin: -3rem auto 0;
+      padding: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Section organigramme */
+    .org-section {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      transition: all 0.3s;
+      border-left: 5px solid var(--primary);
+    }
+
+    .org-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(255, 77, 77, 0.15);
+    }
+
+    .org-section h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .org-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60%;
+      height: 4px;
+      background: var(--gradient);
+      border-radius: 2px;
+    }
+
+    .org-chart-img {
+      width: 100%;
+      max-height: 600px;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-top: 1.5rem;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      border: 1px solid var(--border);
+    }
+
+    .org-chart-img:hover {
+      transform: scale(1.01);
+    }
+
+    /* Section équipe */
+    .team-section {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 2.5rem;
+      transition: all 0.3s;
+      border-left: 5px solid var(--secondary);
+    }
+
+    .team-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 209, 169, 0.15);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .team-member {
+      background: var(--light);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+      text-align: center;
+      position: relative;
+      padding-top: 1.5rem;
+    }
+
+    .team-member::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: var(--gradient);
+    }
+
+    .team-member:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .member-photo {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
+    }
+
+    .member-details {
+      padding: 0 1.5rem 1.5rem;
+    }
+
+    .member-name {
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    .member-role {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      background: var(--primary-light);
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+    }
+
+    .member-bio {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Boutons */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background: var(--gradient);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #FF3333 0%, #00B896 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: -1;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 77, 77, 0.3);
+    }
+
+    .btn:hover::before {
+      opacity: 1;
+    }
+
+    .btn-container {
+      text-align: center;
+      margin: 3rem 0;
+      padding: 0 2rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 4rem 0 0;
+      margin-top: 4rem;
+      transition: background-color 0.3s;
+      clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 3rem;
+    }
+
+    .footer-section h3 {
+      color: white;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--gradient);
+    }
+
+    .footer-section a {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-section a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Bouton retour en haut */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--gradient);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1000;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+    }
+
+    .back-to-top:hover {
+      transform: scale(1.1);
+    }
+
+    /* Dark mode toggle */
+    .dark-mode-toggle {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--gradient);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+
+    .dark-mode-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .navbar {
+      background-color: #1e1e1e;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+
+    body.dark-mode .navbar nav a {
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .navbar nav a:hover {
+      color: var(--primary);
+    }
+
+    body.dark-mode .org-section,
+    body.dark-mode .team-section {
+      background-color: #1e1e1e;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    body.dark-mode .team-member {
+      background-color: #252525;
+    }
+
+    body.dark-mode .member-bio {
+      color: #b0b0b0;
+    }
+
+    body.dark-mode .member-name {
+      color: #f0f0f0;
+    }
+
+    body.dark-mode footer {
+      background-color: #121212;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 6rem 1rem 3rem;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      .navbar nav {
+        gap: 1rem;
+      }
+
+      .org-section,
+      .team-section {
+        padding: 1.5rem;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .navbar {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .navbar nav {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .dark-mode-toggle {
+        bottom: 1rem;
+        left: 1rem;
+        width: 40px;
+        height: 40px;
+      }
+
+      .back-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <img src="logo.png" alt="Logo Federerici Suisse">
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="actualites.html">Actualités</a>
+      <a href="rejoindre.html">Nous Rejoindre</a>
+      <a href="flotte.html">Notre Flotte</a>
+      <a href="membres.html" class="active">Nos Membres</a>
+      <a href="notre histoire.html">Notre Histoire</a>
+      <a href="ressources.html">Ressources</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+
+  <header>
+    <h1>Notre Équipe</h1>
+    <p>Découvrez les membres qui font vivre Federerici Suisse au quotidien</p>
+  </header>
+
+  <main>
+    <div class="org-section">
+      <h2>Organigramme de l'entreprise</h2>
+      <p>Structure organisationnelle de Federerici Suisse</p>
+      <img src="organigramme.jpg" alt="Organigramme Federerici Suisse" class="org-chart-img">
+    </div>
+
+    <div class="team-section">
+      <h2>Les OGs</h2>
+      <p>Rencontrez les membres fondateurs de Federerici Suisse</p>
+
+      <div class="team-grid">
+
+        <div class="team-member">
+          <img src="membres/angry.jpg" alt="AngryBm" class="member-photo">
+          <div class="member-details">
+            <div class="member-name">AngryBm</div>
+            <div class="member-role">Fondateur & Directeur</div>
+            <div class="member-bio">Spécialiste des longues distances et passionné de Volvo. À l'origine de la création de Federerici Suisse.</div>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <img src="membres/shy.jpg" alt="ShyNaxe" class="member-photo">
+          <div class="member-details">
+            <div class="member-name">ShyNaxe</div>
+            <div class="member-role">Directeur-Adjoint</div>
+            <div class="member-bio">Expert en logistique et gestion de flotte. Garant du bon fonctionnement opérationnel.</div>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <img src="membres/fr1te.jpg" alt="Mr.CrazyTruck" class="member-photo">
+          <div class="member-details">
+            <div class="member-name">Mr.CrazyTruck</div>
+            <div class="member-role">Responsable VL</div>
+            <div class="member-bio">Spécialiste des véhicules légers et pilote officiel. Responsable de la division VL.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-container">
+      <a href="rejoindre.html" class="btn">Rejoignez notre équipe</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Federerici Suisse</h3>
+        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">
+          VTC suisse sur Euro Truck Simulator 2<br>
+          Communauté TruckersMP
+        </p>
+      </div>
+      <div class="footer-section">
+        <h3>Navigation</h3>
+        <a href="index.html">Accueil</a>
+        <a href="actualites.html">Actualités</a>
+        <a href="flotte.html">Notre flotte</a>
+        <a href="membres.html">Nos membres</a>
+        <a href="rejoindre.html">Nous rejoindre</a>
+        <a href="notre histoire.html">Notre histoire</a>
+        <a href="ressources.html">Ressources</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-section">
+        <h3>Réseaux</h3>
+        <a href="https://discord.gg/MRFuBCkmA5">Discord</a>
+        <a href="https://truckersmp.com/vtc/47563">TruckersMP</a>
+        <a href="#">YouTube</a>
+        <a href="#">Instagram</a>
+      </div>
+      <div class="footer-section">
+        <h3>Légal</h3>
+        <a href="#">Mentions légales</a>
+        <a href="#">Règlement</a>
+        <a href="#">Politique de confidentialité</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Federerici Suisse | Tous droits réservés | Design by AngryBm & ChatGPT
+    </div>
+  </footer>
+
+  <button class="back-to-top">↑</button>
+  <button class="dark-mode-toggle" title="Basculer en mode sombre">🌓</button>
+
+  <script>
+
+    // Bouton retour en haut
+    const backToTopBtn = document.querySelector('.back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Dark mode toggle
+    const darkModeToggle = document.querySelector('.dark-mode-toggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+    if (localStorage.getItem('darkMode') === 'enabled' ||
+        (localStorage.getItem('darkMode') !== 'disabled' && prefersDarkScheme.matches)) {
+      document.body.classList.add('dark-mode');
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+    });
+  </script>
+</body>
+</html>

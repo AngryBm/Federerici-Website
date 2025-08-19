@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Federerici Suisse VTC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2A7FFF;
+            --primary-light: #E6F0FF;
+            --secondary: #00C4A3;
+            --dark: #1A1A1A;
+            --light: #F8FAFC;
+            --gray: #6B7280;
+            --border: rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #F5F7FA;
+            color: var(--dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .navbar img {
+            height: 50px;
+            transition: transform 0.3s;
+        }
+
+        .navbar img:hover {
+            transform: scale(1.05);
+        }
+
+        .navbar nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .navbar nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .navbar nav a:hover {
+            color: var(--primary);
+        }
+
+        .navbar nav a.active {
+            color: var(--primary);
+        }
+
+        .navbar nav a.active::after,
+        .navbar nav a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .hero {
+            height: 80vh;
+            min-height: 600px;
+            margin-top: 60px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./images/shy.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.8rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            background: #1A6AE6;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(42, 127, 255, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-light);
+        }
+
+        .about {
+            padding: 5rem 0;
+            background-color: white;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--gray);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .about-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Slider à volets */
+        .morph-slider {
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .morph-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .morph-slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .morph-slide[data-slide="1"] {
+            background-image: url('./images/fond1.jpg');
+        }
+        .morph-slide[data-slide="2"] {
+            background-image: url('./images/coruna.jpg');
+        }
+        .morph-slide[data-slide="3"] {
+            background-image: url('./images/nuit.jpg');
+        }
+
+        /* Animation des volets */
+        .shutter {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 3;
+            display: flex;
+            pointer-events: none;
+        }
+
+        .shutter-panel {
+            flex: 1;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scaleY(0);
+            transform-origin: top;
+            opacity: 0;
+        }
+
+        @keyframes shutterDown {
+            0% { transform: scaleY(0); opacity: 0; }
+            100% { transform: scaleY(1); opacity: 1; }
+        }
+
+        @keyframes shutterUp {
+            0% { transform: scaleY(1); opacity: 1; }
+            100% { transform: scaleY(0); opacity: 0; }
+        }
+
+        .slider-content-container {
+            position: absolute;
+            bottom: 15%;
+            left: 10%;
+            z-index: 10;
+            max-width: 50%;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            transition: opacity 0.5s ease;
+        }
+
+        .slider-content {
+            color: white;
+        }
+
+        .slider-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slider-content p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .stats {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .gallery {
+            padding: 5rem 0;
+            background-color: white;
+            position: relative;
+            width: 100%;
+        }
+
+        .gallery-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+
+        .gallery-slide {
+            min-width: 100%;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 2rem;
+            box-sizing: border-box;
+        }
+
+        .gallery-slide img {
+            max-width: 100%;
+            max-height: 500px;
+            width: auto;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            object-fit: contain;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 1rem;
+            box-sizing: border-box;
+        }
+
+        .gallery-nav button {
+            pointer-events: all;
+        }
+
+        .gallery-btn {
+            background: rgba(255,255,255,0.7);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .gallery-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .cta {
+            padding: 5rem 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('./images/cta-bg.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 0;
+            transition: background-color 0.3s;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-section a {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 999;
+            border: none;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            background: #1A6AE6;
+            transform: translateY(-3px);
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .navbar {
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        body.dark-mode .navbar nav a {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .navbar nav a:hover {
+            color: var(--primary);
+        }
+
+        body.dark-mode .about,
+        body.dark-mode .gallery {
+            background-color: #1e1e1e;
+        }
+
+        body.dark-mode footer {
+            background-color: #121212;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .navbar nav {
+                gap: 1rem;
+            }
+
+            .gallery-slide {
+                padding: 0 1rem;
+            }
+
+            .morph-slider {
+                height: 60vh;
+                min-height: 400px;
+            }
+
+            .slider-content-container {
+                max-width: 80%;
+                bottom: 10%;
+                padding: 1.5rem;
+            }
+
+            .slider-content h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .navbar nav {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .dark-mode-toggle {
+                bottom: 1rem;
+                left: 1rem;
+                width: 40px;
+                height: 40px;
+            }
+
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+            }
+
+            .gallery-slide img {
+                max-height: 300px;
+            }
+
+            .morph-slider {
+                height: 50vh;
+                min-height: 350px;
+            }
+
+            .slider-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .slider-content p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <img src="logo.png" alt="Logo Federerici Suisse">
+        <nav>
+            <a href="index.html" class="active">Accueil</a>
+            <a href="actualites.html">Actualités</a>
+            <a href="rejoindre.html">Nous Rejoindre</a>
+            <a href="flotte.html">Notre Flotte</a>
+            <a href="membres.html">Nos Membres</a>
+            <a href="notre histoire.html">Notre Histoire</a>
+            <a href="ressources.html">Ressources</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Federerici <span class="highlight">Suisse</span></h1>
+            <p>La VTC suisse qui allie <span class="highlight">précision</span> et <span class="highlight">convivialité</span> sur TruckersMP</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="rejoindre.html" class="btn">Nous rejoindre</a>
+                <a href="https://truckersmp.com/vtc/47563" target="blank" class="btn btn-outline">Retrouvez-nous sur TruckersMP</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Qui sommes-nous ?</h2>
+                <p>Découvrez l'histoire et les valeurs de Federerici Suisse</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Federerici Suisse est une <span class="highlight">VTC suisse</span> opérant sur TruckersMP, née de l'envie de rassembler des passionnés autour d'une vision commune : prendre la route avec <span class="highlight">rigueur</span>, <span class="highlight">respect</span> et <span class="highlight">convivialité</span>.</p>
+                    <p>Bien plus qu'une simple VTC, nous sommes une <span class="highlight">communauté soudée</span> où chacun peut évoluer à son rythme dans un cadre aussi structuré qu'une montre Suisse !</p>
+                    <p>Nos valeurs : <span class="highlight">bonne ambiance</span>, <span class="highlight">conduite propre</span>, <span class="highlight">esprit d'équipe</span> et <span class="highlight">plaisir de jouer</span>. Nos convois allient autant le réalisme que le fun, avec une place pour tous.</p>
+                </div>
+                <div class="about-image">
+                    <img src="./images/about.jpg" alt="Équipe Federerici">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="morph-slider">
+        <div class="shutter" id="shutter">
+            <div class="shutter-panel"></div>
+            <div class="shutter-panel"></div>
+            <div class="shutter-panel"></div>
+            <div class="shutter-panel"></div>
+            <div class="shutter-panel"></div>
+        </div>
+
+        <div class="morph-slide active" data-slide="1">
+            <div class="slider-content-container">
+                <div class="slider-content">
+                    <h2>Notre Flotte de Qualité</h2>
+                    <p>Découvrez les véhicules des membres soigneusement personnalisés</p>
+                    <a href="flotte.html" class="btn">Voir la flotte</a>
+                </div>
+            </div>
+        </div>
+        <div class="morph-slide" data-slide="2">
+            <div class="slider-content-container">
+                <div class="slider-content">
+                    <h2>Convois Organisés</h2>
+                    <p>Participez à nos événements routiers communautaires</p>
+                    <a href="actualites.html" class="btn">Voir les actus</a>
+                </div>
+            </div>
+        </div>
+        <div class="morph-slide" data-slide="3">
+            <div class="slider-content-container">
+                <div class="slider-content">
+                    <h2>Communauté Active</h2>
+                    <p>Rejoignez une équipe soudée de passionnés</p>
+                    <a href="rejoindre.html" class="btn">Nous rejoindre</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>4</h3>
+                    <p>Membres Actifs</p>
+                </div>
+                <div class="stat-item">
+                    <h3>2+</h3>
+                    <p>Convois Mensuels</p>
+                </div>
+                <div class="stat-item">
+                    <h3>2021</h3>
+                    <p>Année de Création</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100%</h3>
+                    <p>Passionnés</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Notre équipe en images</h2>
+                <p>Découvrez nos camions et moments forts</p>
+            </div>
+            <div class="gallery-container">
+                <div class="gallery-slider">
+                    <div class="gallery-slide">
+                        <img src="./images/autriche1.jpg" alt="Convoi Federerici">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="./images/autriche2.jpg" alt="L'équipe entourée d'autres chauffeurs">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="./images/corse1.jpg" alt="Corse">
+                    </div>
+                </div>
+                <div class="gallery-nav">
+                    <button class="gallery-btn prev">❮</button>
+                    <button class="gallery-btn next">❯</button>
+                </div>
+            </div>
+        </div>
+        <br> <center><a href="flotte.html" class="btn">Voir plus</a></center>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Prêt à nous rejoindre ?</h2>
+            <p>Postulez dès maintenant et intégrez une communauté de passionnés du transport routier virtuel.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="rejoindre.html" class="btn">Postuler maintenant</a>
+                <a href="https://discord.gg/MRFuBCkmA5" class="btn btn-outline">Rejoindre notre Discord</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Federerici Suisse</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">
+                    VTC suisse sur Euro Truck Simulator 2<br>
+                    Communauté TruckersMP
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <a href="index.html">Accueil</a>
+                <a href="actualites.html">Actualités</a>
+                <a href="flotte.html">Notre flotte</a>
+                <a href="membres.html">Nos membres</a>
+                <a href="rejoindre.html">Nous rejoindre</a>
+                <a href="notre histoire.html">Notre histoire</a>
+                <a href="ressources.html">Ressources</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Réseaux</h3>
+                <a href="https://discord.gg/MRFuBCkmA5">Discord</a>
+                <a href="https://truckersmp.com/vtc/47563">TruckersMP</a>
+                <a href="#">YouTube</a>
+                <a href="#">Instagram</a>
+            </div>
+            <div class="footer-section">
+                <h3>Légal</h3>
+                <a href="#">Mentions légales</a>
+                <a href="#">Règlement</a>
+                <a href="#">Politique de confidentialité</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 Federerici Suisse | Tous droits réservés | Design by AngryBm & ChatGPT
+        </div>
+    </footer>
+
+    <button class="back-to-top">↑</button>
+    <button class="dark-mode-toggle" title="Basculer en mode sombre">🌓</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Slider à volets
+            const slides = document.querySelectorAll('.morph-slide[data-slide]');
+            const shutter = document.getElementById('shutter');
+            const panels = shutter.querySelectorAll('.shutter-panel');
+            let currentSlide = 0;
+            let isAnimating = false;
+            let slideInterval;
+
+            function animateShutter() {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                // Fade out current slide's content
+                const currentContent = slides[currentSlide].querySelector('.slider-content-container');
+                currentContent.style.opacity = '0';
+                currentContent.style.transition = 'opacity 0.5s ease';
+
+                // Shutters down
+                panels.forEach((panel, index) => {
+                    panel.style.animation = `shutterDown 0.5s ease ${index * 0.1}s forwards`;
+                });
+
+                setTimeout(() => {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+
+                    // Prepare new content
+                    const newContent = slides[currentSlide].querySelector('.slider-content-container');
+                    newContent.style.opacity = '0';
+
+                    // Shutters up
+                    setTimeout(() => {
+                        panels.forEach((panel, index) => {
+                            panel.style.animation = `shutterUp 0.5s ease ${index * 0.1}s forwards`;
+                        });
+
+                        // Fade in new content
+                        newContent.style.opacity = '1';
+                        newContent.style.transition = 'opacity 0.5s ease 0.25s';
+
+                        setTimeout(() => {
+                            panels.forEach(panel => {
+                                panel.style.animation = 'none';
+                            });
+                            isAnimating = false;
+                        }, 500);
+                    }, 500);
+                }, 500);
+            }
+
+            function startSlider() {
+                slideInterval = setInterval(animateShutter, 4000);
+            }
+
+            const slider = document.querySelector('.morph-slider');
+            slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+            slider.addEventListener('mouseleave', startSlider);
+            startSlider();
+
+            // Back-to-top button
+            const backToTopButton = document.querySelector('.back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Dark mode toggle
+            const darkModeToggle = document.querySelector('.dark-mode-toggle');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+            if (localStorage.getItem('darkMode') === 'enabled' || (localStorage.getItem('darkMode') !== 'disabled' && prefersDarkScheme.matches)) {
+                document.body.classList.add('dark-mode');
+            }
+
+            darkModeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+            });
+
+            // Gallery slider
+            const gallerySlider = document.querySelector('.gallery-slider');
+            const gallerySlides = document.querySelectorAll('.gallery-slide');
+            const prevBtn = document.querySelector('.prev');
+            const nextBtn = document.querySelector('.next');
+            let currentGalleryIndex = 0;
+            let galleryInterval;
+
+            function updateSliderPosition() {
+                gallerySlider.style.transform = `translateX(-${currentGalleryIndex * 100}%)`;
+            }
+
+            function nextSlide() {
+                currentGalleryIndex = (currentGalleryIndex + 1) % gallerySlides.length;
+                updateSliderPosition();
+            }
+
+            function prevSlide() {
+                currentGalleryIndex = (currentGalleryIndex - 1 + gallerySlides.length) % gallerySlides.length;
+                updateSliderPosition();
+            }
+
+            function startGallerySlider() {
+                galleryInterval = setInterval(nextSlide, 5000);
+            }
+
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                clearInterval(galleryInterval);
+                startGallerySlider();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                clearInterval(galleryInterval);
+                startGallerySlider();
+            });
+
+            const galleryContainer = document.querySelector('.gallery-container');
+            galleryContainer.addEventListener('mouseenter', () => clearInterval(galleryInterval));
+            galleryContainer.addEventListener('mouseleave', () => startGallerySlider());
+
+            startGallerySlider();
+        });
+    </script>
+</body>
+</html>

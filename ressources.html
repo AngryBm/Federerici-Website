@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ressources Utiles | Federerici Suisse VTC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF7F2A; /* Orange comme demandé */
+      --primary-light: #FFE8D9;
+      --secondary: #2A7FFF;
+      --dark: #1A1A1A;
+      --light: #F8FAFC;
+      --gray: #6B7280;
+      --border: rgba(0,0,0,0.1);
+      --gradient: linear-gradient(135deg, #FF7F2A 0%, #FFAA2A 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #F5F7FA;
+      color: var(--dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    /* Navbar identique */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .navbar img {
+      height: 50px;
+      transition: transform 0.3s;
+    }
+
+    .navbar img:hover {
+      transform: scale(1.05);
+    }
+
+    .navbar nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .navbar nav a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .navbar nav a:hover {
+      color: var(--primary);
+    }
+
+    .navbar nav a.active {
+      color: var(--primary);
+    }
+
+    .navbar nav a.active::after,
+    .navbar nav a:hover::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 8rem 1rem 4rem;
+      margin-top: 60px;
+      background: linear-gradient(135deg, var(--primary), #E66A00);
+      color: white;
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    /* Main content */
+    main {
+      max-width: 1100px;
+      margin: -3rem auto 0;
+      padding: 2rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      position: relative;
+      z-index: 1;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      border-bottom: 3px solid var(--secondary);
+      padding-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    /* Carte interactive */
+    .map-container {
+      width: 100%;
+      height: 600px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      margin: 2rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .map-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .map-note {
+      font-size: 0.9rem;
+      color: var(--gray);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* Liens utiles */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .link-card {
+      background: var(--light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .link-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(255, 127, 42, 0.15);
+    }
+
+    .link-card h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .link-card p {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .link-card a {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: var(--gradient);
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+
+    .link-card a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 127, 42, 0.3);
+    }
+
+    /* Boutons */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.8rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #E66A00;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(230, 106, 0, 0.3);
+    }
+
+    /* Footer identique */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 4rem 0 0;
+      margin-top: 4rem;
+      transition: background-color 0.3s;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 3rem;
+    }
+
+    .footer-section h3 {
+      color: white;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--primary);
+    }
+
+    .footer-section a {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-section a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Bouton retour en haut */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1000;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+    }
+
+    .back-to-top:hover {
+      background: #E66A00;
+      transform: scale(1.1);
+    }
+
+    /* Dark mode toggle */
+    .dark-mode-toggle {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+
+    .dark-mode-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .navbar {
+      background-color: #1e1e1e;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+
+    body.dark-mode .navbar nav a {
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .navbar nav a:hover {
+      color: var(--primary);
+    }
+
+    body.dark-mode main {
+      background-color: #1e1e1e;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    body.dark-mode .link-card {
+      background-color: #2a2a2a;
+    }
+
+    body.dark-mode footer {
+      background-color: #121212;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 6rem 1rem 3rem;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      .navbar nav {
+        gap: 1rem;
+      }
+
+      main {
+        padding: 1.5rem;
+        margin-top: -2rem;
+      }
+
+      .map-container {
+        height: 400px;
+      }
+
+      .links-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .navbar {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .navbar nav {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .dark-mode-toggle {
+        bottom: 1rem;
+        left: 1rem;
+        width: 40px;
+        height: 40px;
+      }
+
+      .back-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <img src="logo.png" alt="Logo Federerici Suisse">
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="actualites.html">Actualités</a>
+      <a href="rejoindre.html">Nous Rejoindre</a>
+      <a href="flotte.html">Notre Flotte</a>
+      <a href="membres.html">Nos Membres</a>
+      <a href="notre histoire.html">Notre Histoire</a>
+      <a href="ressources.html" class="active">Ressources</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+
+  <header>
+    <h1>Ressources Utiles</h1>
+    <p>Tous les outils et liens indispensables pour les membres Federerici</p>
+  </header>
+
+  <main>
+    <div class="section">
+      <h2>Carte Interactive</h2>
+      <p>Explorez la carte du jeu avec les routes, les villes et les points d'intérêt en temps réel.</p>
+
+      <div class="map-container">
+        <iframe class="map-iframe" src="https://ets2.online/map/ets2" frameborder="0"></iframe>
+      </div>
+      <p class="map-note">Carte interactive fournie par ETS2.online - Montre le trafic joueur en direct</p>
+    </div>
+
+    <div class="section">
+      <h2>Liens Utiles</h2>
+      <p>Ressources essentielles pour nos chauffeurs et membres.</p>
+
+      <div class="links-grid">
+        <div class="link-card">
+          <h3>TruckersMP</h3>
+          <p>Site officiel de TruckersMP avec les règles, actualités et statut du serveur</p>
+          <a href="https://truckersmp.com/" target="_blank">Visiter</a>
+        </div>
+
+        <div class="link-card">
+          <h3>World of Trucks</h3>
+          <p>Plateforme officielle SCS pour les événements, profils et livraisons spéciales</p>
+          <a href="https://worldoftrucks.com/" target="_blank">Visiter</a>
+        </div>
+
+        <div class="link-card">
+          <h3>TruckersMP Map</h3>
+          <p>Carte alternative avec toutes les routes et villes du jeu</p>
+          <a href="https://map.truckersmp.com/" target="_blank">Visiter</a>
+        </div>
+
+        <div class="link-card">
+          <h3>Discord Federerici</h3>
+          <p>Rejoignez notre serveur Discord communautaire</p>
+          <a href="https://discord.gg/MRFuBCkmA5" target="_blank">Rejoindre</a>
+        </div>
+
+        <div class="link-card">
+          <h3>Convois Officiels TruckersMP</h3>
+          <p>Calendrier des convois TruckersMP et événements</p>
+          <a href="https://truckersmp.com/events" target="_blank">Voir le calendrier</a>
+        </div>
+
+        <div class="link-card">
+          <h3>Guides TruckersMP</h3>
+          <p>Tutos et guides pour bien démarrer sur le jeu</p>
+          <a href="https://truckersmp.com/knowledge-base/" target="_blank">Lire</a>
+        </div>
+
+        <div class="link-card">
+          <h3>TrucksBook</h3>
+          <p>Application pour suivre vos missions en jeu</p>
+          <a href="https://trucksbook.eu/" target="_blank">Découvrir</a>
+        </div>
+
+        <div class="link-card">
+          <h3>Trucky</h3>
+          <p>Application pour suivre vos missions en jeu</p>
+          <a href="https://truckyapp.com/" target="_blank">Découvrir</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Federerici Suisse</h3>
+        <p style="color: rgba(255,255,255,0.7); margin-top: 1rem; font-size: 0.95rem;">
+          VTC suisse sur Euro Truck Simulator 2<br>
+          Communauté TruckersMP
+        </p>
+      </div>
+      <div class="footer-section">
+        <h3>Navigation</h3>
+        <a href="index.html">Accueil</a>
+        <a href="actualites.html">Actualités</a>
+        <a href="flotte.html">Notre flotte</a>
+        <a href="membres.html">Nos membres</a>
+        <a href="rejoindre.html">Nous rejoindre</a>
+        <a href="notre histoire.html">Notre histoire</a>
+        <a href="ressources.html">Ressources</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-section">
+        <h3>Réseaux</h3>
+        <a href="https://discord.gg/MRFuBCkmA5">Discord</a>
+        <a href="https://truckersmp.com/vtc/47563">TruckersMP</a>
+        <a href="#">YouTube</a>
+        <a href="#">Instagram</a>
+      </div>
+      <div class="footer-section">
+        <h3>Légal</h3>
+        <a href="#">Mentions légales</a>
+        <a href="#">Règlement</a>
+        <a href="#">Politique de confidentialité</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Federerici Suisse | Tous droits réservés | Design by AngryBm & ChatGPT
+    </div>
+  </footer>
+
+  <button class="back-to-top">↑</button>
+  <button class="dark-mode-toggle" title="Basculer en mode sombre">🌓</button>
+
+  <script>
+    // Bouton retour en haut
+    const backToTopBtn = document.querySelector('.back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Dark mode toggle
+    const darkModeToggle = document.querySelector('.dark-mode-toggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // Vérifier la préférence système et le localStorage
+    if (localStorage.getItem('darkMode') === 'enabled' ||
+        (localStorage.getItem('darkMode') !== 'disabled' && prefersDarkScheme.matches)) {
+      document.body.classList.add('dark-mode');
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+    });
+  </script>
+</body>
+</html>
